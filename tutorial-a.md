@@ -6,9 +6,9 @@
 
 ## To Do
 
-- [ ] title.html
-  - [ ] HTML elements
-  - [ ] CSS Styling
+- [x] title.html
+  - [x] HTML elements
+  - [x] CSS Styling
 - [ ] game.html
   - [ ] Card container
   - [ ] CSS Animation: Flip
