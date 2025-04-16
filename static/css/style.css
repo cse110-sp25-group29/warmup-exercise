@@ -1,3 +1,19 @@
+/* GAME ATTRIBUTES */
+.game-body {
+    background-color: #151515;
+}
+
+.game-main {
+    justify-items: center;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+}
+
+.game-h1-text {
+    color: #b5e853;
+    font-size: min(30px, 3vw);
+}
+
+/* TITLE ATTRIBUTES */
 .title-body {
     background-color: #151515;
 }
@@ -7,7 +23,7 @@
     font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 }
 
-.title-text {
+.title-h1-text {
     color: #b5e853;
     font-size: min(30px, 3vw);
 }
