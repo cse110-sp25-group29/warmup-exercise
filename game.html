@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Card Game</title>
-  <link rel="stylesheet" href="./static/css/style.css">
-  <style>
-
-
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Game</title>
+    <link rel="stylesheet" href="./static/css/style.css">
 </head>
 <body>
-  <div class="deck">Deck of Cards</div>
+    <div class="deck">Deck of Cards</div>
+    <div class="cards-deck"></div>
 
-  <div class="card-grid" id="cardGrid"></div>
+    <div class="card-grid" id="cardGrid"></div>
 
-  <button onclick="shuffleAndRedeal()">Shuffle & Redeal</button>
-  <button onclick="backToTitle()">Back</button>
+    <button onclick="shuffleAndRedeal()">Shuffle & Redeal</button>
+    <button onclick="backToTitle()">Back</button>
 
-  <script src="static/js/game.js">
-
+    <script src="static/js/game.js">
 
     // Initial deal
-    shuffleAndRedeal();
     backToTitle();
   </script>
 </body>

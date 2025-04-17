@@ -10,7 +10,7 @@ body {
     background-image: url("../img/bg.png");
     background-repeat: no-repeat;
     background-position: center;
-  }
+}
 
 button {
     margin-top: 20px;
@@ -29,6 +29,7 @@ button {
     grid-template-columns: repeat(5, 80px);
     grid-gap: 10px;
     margin: 20px;
+    height: 200px;
 }
 
 .card {
@@ -45,10 +46,13 @@ button {
     perspective: 600px;
 
 }
+
 .card.unflipped {
     background-color: white;
     color: black;
     transform: rotateY(180deg);
+    background-image: url("../cards/back/muzicardia\ back.png");
+    background-size: cover;
 }
 
 button {
@@ -69,4 +73,21 @@ button {
 
 .card.unflipped .card-inner {
     transform: rotateY(180deg);
+}
+
+.cards-deck {
+    height: 120px;
+    width: 80px;
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    perspective: 600px;
+    background-image: url("../cards/back/muzicardia\ back.png");
+    background-size: cover;
+    transform: rotate(180deg)
 }
