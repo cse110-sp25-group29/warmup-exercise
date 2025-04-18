@@ -65,7 +65,8 @@ const flipCard = function(card, content) {
     }
 }
 
-const shuffleAndRedeal = function() {
+const shuffleAndRedeal = async function() {
+    await animateShuffle();
     const deck = generate52Deck();
     let draw = getCard(deck);
     print(draw);
