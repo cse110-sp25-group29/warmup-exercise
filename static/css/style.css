@@ -55,6 +55,17 @@ button {
     background-size: cover;
 }
 
+.card.move {
+    transform: translateX(200px);
+    transition: transform 0.5s ease-in-out;
+  }
+
+.card.moveBack {
+    transform: translateX(-200px);
+    transition: transform 0.5s ease-in-out;
+  }
+
+
 button {
     margin-top: 20px;
     padding: 10px 20px;
@@ -75,19 +86,33 @@ button {
     transform: rotateY(180deg);
 }
 
+.card.inDeck {
+    position:absolute;
+    
+}
+
 .cards-deck {
-    height: 120px;
-    width: 80px;
-    background-color: white;
-    color: black;
-    display: flex;
+    /* height: 120px;
+    width: 80px; */
+    /* background-color: white;
+    color: black; */
+    /* display: -webkit-box; */
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    grid-gap: 10px;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    border-radius: 10px;
+    /* cursor: pointer; */
+    /* border-radius: 10px; */
     transition: transform 0.3s;
-    perspective: 600px;
-    background-image: url("../cards/back/muzicardia\ back.png");
+    /* perspective: 600px; */
+    /* background-image: url("../cards/back/muzicardia\ back.png"); */
+    background: transparent;
     background-size: cover;
-    transform: rotate(180deg)
+    /* transform: rotate(180deg) */
+    /* direction: rtl; */
+}
+
+#redeal {
+    display: none;
 }

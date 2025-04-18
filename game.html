@@ -8,11 +8,15 @@
 </head>
 <body>
     <div class="deck">Deck of Cards</div>
-    <div class="cards-deck"></div>
+    <div class="cards-deck" id="cardsDeck"></div>
+  <div></div>
+    <!-- <div class="card-grid" id="cardGrid"></div> -->
 
-    <div class="card-grid" id="cardGrid"></div>
+    <!-- <button id="shuffle" onclick="shuffleAndDeal()">Shuffle & Redeal</button> -->
+    <button id="deal" onclick="shuffleAndDeal()">Shuffle & Deal</button>
+    <button id="redeal" onclick="shuffleAndRedeal()">Shuffle & Redeal</button>
 
-    <button onclick="shuffleAndRedeal()">Shuffle & Redeal</button>
+
     <button onclick="backToTitle()">Back</button>
 
     <script src="static/js/game.js">
