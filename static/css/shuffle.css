@@ -1,0 +1,7 @@
+.card-container {
+    transition: transform 0.8s ease-in-out var(--delay);
+}
+
+.card-container.move-cards {
+    transform: translate(var(--dx), var(--dy));
+}
