@@ -15,7 +15,7 @@ See the last [meeting minutes](https://cse11029boompow.slack.com/docs/T08MKM8RC4
 - 4/20 Sunday: Branches are merged, deliverables are finished and submitted.
 
 
-### Repo Structure
+### Repo Structure(Start up)
 ```
 warmup-exercise/ (each team make a branch)
 | - README.md (has the tutorials)
@@ -44,6 +44,26 @@ warmup-exercise/ (each team make a branch)
   - Button for shuffling and redeal
   - Flip card, shuffle & redeal animation
   - *Optional: See objective 2 and 3 on Canvas*
+
+ ### Repo Structure(Final)
+```
+warmup-exercise/
+| - README.md (has the tutorials)
+    | - title.html # title page
+    | - game.html # easy (step1) page
+    | - drag_card.html # Solitaire (step1+2+3) page
+    | - static/
+        | - css/
+            | - style.css # easy's css
+            | - drag_card.css # Solitaire's css
+        | - js/
+            | - game.js # easy's js
+            | - drag_card.js # Solitaire's js
+        | - logo/
+            | - bg.png # group logo
+        | - cards/
+            | - ...
+```
 
 ## Resources
 - [Card Flip Tutorial](https://www.youtube.com/watch?v=QON4dFDzsiE)
