@@ -3,6 +3,7 @@ document.body.onload = setupBoard;
 
 // the 7 columns on the board
 const columns = []
+let deck = []
 
 /**
  * A class effectively just representing a div that contains
@@ -16,8 +17,6 @@ class Column {
         this.col = document.createElement("div");
         this.col.id = "col"+id;
         this.col.classList.add("column")
-
-        this.topIsFlipped = false
 
         this.order = []
     }
@@ -53,12 +52,36 @@ class Column {
         return ret
     }
 
+    toggleTopCard(value) {
+        if (this.order.length == 0)
+            return
+
+        var lastCard = this.order[this.order.length-1]
+        if (lastCard.flipped)
+            return
+
+        if (lastCard.flippable && !value)
+            lastCard.makeUnflippable()
+        else if (!lastCard.flippable && value)
+            lastCard.makeFlippable()
+    }
+
     canAccept(card) {
         console.assert(typeof(card) == "object", "card should be object, is " + typeof(card))
         console.assert(card instanceof Card, "card should be Card, is not :(")
         
         // TODO: implement this
-        return true
+        if (this.order.length == 0)
+            return true
+
+        var lastCard = this.order[this.order.length-1]
+        if (!lastCard.flipped)
+            return true
+
+        if (lastCard.enumRank() == card.enumRank() + 1 && lastCard.enumSuit() != card.enumSuit())
+            return true
+
+        return false
     }
 }
 
@@ -79,7 +102,10 @@ class Card {
 
         this.front = document.createElement("div")
         this.front.classList.add("card-front")
-        this.front.style.backgroundImage = "url(/static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + ".png)"
+        if (rank == 'jack' || rank == 'queen' || rank == 'king')
+            this.front.style.backgroundImage = "url(/static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + "2.png)"
+        else    
+            this.front.style.backgroundImage = "url(/static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + ".png)"
 
         this.back = document.createElement("div")
         this.back.classList.add("card-back")
@@ -96,6 +122,38 @@ class Card {
         this.mouseUp = this.mouseUp.bind(this)
 
         this.flipped = false
+    }
+
+    enumRank() {
+        switch (this.rank) {
+            case 'ace': return 1
+            case '2': return 2
+            case '3': return 3
+            case '4': return 4
+            case '5': return 5
+            case '6': return 6
+            case '7': return 7
+            case '8': return 8
+            case '9': return 9
+            case '10': return 10
+            case 'jack': return 11
+            case 'queen': return 12
+            case 'king': return 13
+            default: return -1
+        }
+    }
+
+    enumSuit() {
+        switch (this.suit) {
+            case 'spades':
+            case 'clubs':
+                return 0
+            case 'hearts':
+            case 'diamonds':
+                return 1
+            default:
+                return -1
+        }
     }
 
     setParent(parent) {
@@ -241,11 +299,51 @@ class Card {
  */
 function exchangeColumn(col1, col2, cardStack) {
     console.log("exhange")
+
+    col2.toggleTopCard(false)
     for (const key of cardStack.keys()) {
         cardStack[key].column = col2
         col2.appendChild(cardStack[key])
         col1.order.pop()
     }
+    col1.toggleTopCard(true)
+}
+
+/**
+ * Taken from StackOverflow :P
+ * https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ * 
+ * @param {*} array Array to shuffle
+ */
+function shuffle(array) {
+    let currentIndex = array.length;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  }
+
+function generateCardsList() {
+    const suits = ['spades', 'hearts', 'clubs', 'diamonds']
+    const ranks = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
+
+    var ret = []
+    for (const suit of suits) {
+        for (const rank of ranks) {
+            ret.push([suit, rank])
+        }
+    }
+
+    shuffle(ret)
+    return ret;
 }
 
 /**
@@ -253,17 +351,19 @@ function exchangeColumn(col1, col2, cardStack) {
  */
 function setupBoard() {
     const currentSection = document.getElementsByClassName("board")[0];
+    deck = generateCardsList()
 
     for (var i = 0; i < 7; i++) {
         var col = new Column(i);
         col.setParent(currentSection)
 
         for (var j = 0; j <= i; j++) {
-            var card = new Card(""+ (j+2), 'spades', col);
-            // card.setParent(col)
+            var topDeck = deck.pop()
+            var card = new Card(topDeck[1], topDeck[0], col);
 
-            if (j == i)
-                card.makeFlippable()
+            if (j == i) {
+                card.flip()
+            }
         }
 
         columns.push(col)
