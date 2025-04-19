@@ -4,6 +4,7 @@ document.body.onload = setupBoard;
 // the 7 columns on the board
 const columns = []
 let deck = []
+let remainingDeck = [];
 
 /**
  * A class effectively just representing a div that contains
@@ -329,7 +330,7 @@ function shuffle(array) {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  }
+}
 
 function generateCardsList() {
     const suits = ['spades', 'hearts', 'clubs', 'diamonds']
@@ -368,4 +369,55 @@ function setupBoard() {
 
         columns.push(col)
     }
+    remainingDeck = deck.slice();
 }
+
+// pull out a new card from the deck
+document.querySelector('.deck').addEventListener('click', () => {
+    if (remainingDeck.length === 0) return;
+  
+    const [suit, rank] = remainingDeck.pop();
+    const backupContainer = document.getElementById("backup-card");
+  
+
+    while (backupContainer.firstChild) {
+      backupContainer.removeChild(backupContainer.firstChild);
+    }
+  
+
+    const fakeColumn = {
+      order: [],
+      appendChild: function(card) {
+        this.order.push(card);
+        backupContainer.appendChild(card.container);
+      },
+      getStack: function(card) {
+        return [card];
+      },
+      toggleTopCard: function(_) {},
+      canAccept: function(_) {
+        return false;
+      }
+    };
+  
+    const newCard = new Card(rank, suit, fakeColumn);
+    newCard.flip();
+});
+
+//shuffle/restart the game
+document.getElementById("shuffle").addEventListener("click", () => {
+    const board = document.querySelector(".board");
+    board.innerHTML = "";
+  
+    const backup = document.getElementById("backup-card");
+    if (backup) backup.innerHTML = "";
+  
+    columns.length = 0;
+  
+    deck = generateCardsList();        
+    remainingDeck = [];                
+    revealIndex = 0;                
+    setupBoard();                     
+});
+  
+  

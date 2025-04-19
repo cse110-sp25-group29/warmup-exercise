@@ -19,6 +19,7 @@
 }
 
 .title-main {
+    margin-top: 80px;
     justify-items: center;
     font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 }
@@ -125,3 +126,42 @@
 .shuffle {
     color: black
 }
+
+/* Logo */
+.logo-image {
+    margin-top: 80px;
+    width: 800px;       
+    height: auto;
+    margin: 20px 0;
+}
+
+/* 2 button */
+.button-game,
+.button-drag {
+    min-width: 220px;
+    margin-top: 60px;
+    padding: 16px 32px;          
+    font-size: 20px;             
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    border-radius: 6px;         
+
+    background-color: #b5e853;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+}
+
+.button-title {
+    font-size: 24px;      
+    font-weight: bold;
+}
+
+.button-subtext {
+    font-size: 14px;     
+    font-weight: normal;
+}
+  
+
+  
+  

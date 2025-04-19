@@ -3,63 +3,36 @@
   <head>
     <meta charset="UTF-8">
     <title>Testing</title>
-    <link rel="stylesheet" href="drag_card.css">
+    <link rel="stylesheet" href="/static/css/drag_card.css">
   </head>
   <body class="body">
     <main class="main">
+        <div class="button-stack">
+          <button class="shuffle-button" id="shuffle">Shuffle</button>
+          <button class="title-button" onclick="window.location.href='title.html'">Title</button>
+        </div>
+
         <section class="top">
           <div class="deck empty-stack">
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
+            <div class="card" style="
+              background-image: url('static/cards/PNG-cards-1.3/muzicardia back.png'); 
+              background-size: 100% 100%;
+              background-position: center;"></div>
           </div>
-          <div class="revealed_stack empty-stack">
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
-          </div>
+          <div id="backup-card" class="ace-pile empty-stack"></div>
+          
 
           <!-- empty div for positioning -->
           <div></div>
 
-          <div id="ace1" class="ace-pile empty-stack">
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
-          </div>
-          <div id="ace2" class="ace-pile empty-stack">
-            <!-- <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div> -->
-          </div>
-          <div id="ace3" class="ace-pile empty-stack">
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
-          </div>
-          <div id="ace4" class="ace-pile empty-stack">
-            <div class="card" style=
-            "background-image: url('static/cards/PNG-cards-1.3/muzicardia\ back.png'); 
-            background-size: 100% 100%;
-            background-position: center;"></div>
-          </div>
+          <div id="ace1" class="ace-pile empty-stack"></div>
+          <div id="ace2" class="ace-pile empty-stack"></div>
+          <div id="ace3" class="ace-pile empty-stack"></div>
+          <div id="ace4" class="ace-pile empty-stack"></div>
         </section>
 
         <section class="board">
-          <script type="text/javascript" src="drag_card.js"></script>
+          <script type="text/javascript" src="/static/js/drag_card.js"></script>
         </section>
     </main>
   </body>

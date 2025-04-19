@@ -7,13 +7,23 @@
   </head>
   <body class="title-body">
     <main class="title-main">
-        <h1 class="title-h1-text">Welcome to the game! Press below to start.</h1>
 
-        <button type=button
-                class="button1"
-                onclick="window.location='./game.html'">
-        TO GAME
+      <h1 class="title-h1-text">Welcome to the game! Press below to start.</h1>
+
+      <img src="static/logo/bg.png" alt="Group Logo" class="logo-image">
+      
+      <div class="button-group">
+        <button class="button-game" onclick="window.location='./game.html'">
+          <span class="button-title">Easy</span><br>
+          <span class="button-subtext">(Step1)</span>
         </button>
+        
+        <button class="button-drag" onclick="window.location='./drag_card.html'">
+          <span class="button-title">Solitaire</span><br>
+          <span class="button-subtext">(Step1+2+3!)</span>
+        </button>        
+      </div>
+
     </main>
   </body>
 </html>
