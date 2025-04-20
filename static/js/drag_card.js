@@ -3,8 +3,52 @@ document.body.onload = setupBoard;
 
 // the 7 columns on the board
 const columns = []
+const piles = []
 let deck = []
 let remainingDeck = [];
+
+class Pile {
+    constructor(id) {
+        this.id = id
+        this.cards = []
+        this.top = 1
+        this.suit = null
+
+        this.pile = document.createElement("div");
+        this.pile.id = "pile"+id;
+        this.pile.classList.add("ace-pile")
+        this.pile.classList.add("empty-stack")
+    }
+
+    setParent(parent) {
+        parent.appendChild(this.pile)
+    }
+
+    addStack(card) {
+        this.pile.appendChild(card.container)
+        this.top = card.enumRank() + 1
+        this.suit = card.suit
+        this.cards.push(card)
+        card.makeUndraggable()
+        card.container.style.zIndex = this.top
+    }
+
+    getCenterX() {
+        return this.pile.getBoundingClientRect().x + this.pile.getBoundingClientRect().width / 2
+    }
+
+    getCenterY() {
+        return this.pile.getBoundingClientRect().y + this.pile.getBoundingClientRect().height / 2
+    }
+
+    canAccept(card) {
+        if (this.cards.length == 0) {
+            return card.rank == "ace"
+        } else {
+            return card.enumRank() == this.top & card.suit === this.suit
+        }
+    }
+}
 
 /**
  * A class effectively just representing a div that contains
@@ -274,6 +318,29 @@ class Card {
         }
 
         let closestCol = null, bestX = 9999999999;
+        for (const key of piles.keys()) {
+            var pile = piles[key]
+            var dx = this.elemX + this.container.getBoundingClientRect().width / 2 
+                        - pile.getCenterX()
+            var dy = this.elemY + this.container.getBoundingClientRect().height / 2
+                        - pile.getCenterY()
+            
+            if (Math.abs(dx) < bestX && Math.abs(dy) < 100) {
+                bestX = Math.abs(dx)
+                closestCol = pile
+            }
+
+            console.log(dy)
+        }
+
+        if (bestX < 40) {
+            if (closestCol.canAccept(this) && this.dragStack.length == 1) {
+                console.log('put on pile')
+                exchangeColumn(this.column, closestCol, this.dragStack)
+            }
+            return
+        }
+
         for (const key of columns.keys()) {
             var col = columns[key]
             var dx = this.elemX + this.container.getBoundingClientRect().width / 2 
@@ -299,7 +366,13 @@ class Card {
  * @param {*} cardStack The cards
  */
 function exchangeColumn(col1, col2, cardStack) {
-    console.log("exhange")
+    if (col2 instanceof Pile) {
+        cardStack[0].column = col2
+        col2.addStack(cardStack[0])
+        col1.order.pop()
+        col1.toggleTopCard(true)
+        return
+    }
 
     col2.toggleTopCard(false)
     for (const key of cardStack.keys()) {
@@ -369,11 +442,22 @@ function setupBoard() {
 
         columns.push(col)
     }
+
+    for (var i = 0; i < 4; i++) {
+        var pile = new Pile(i);
+        pile.setParent(document.getElementsByClassName("top")[0])
+        piles.push(pile)
+    }
+
+    document.getElementsByClassName("deck")[0].style.backgroundImage = "url('static/cards/PNG-cards-1.3/muzicardia\ back.png')"
+    document.getElementsByClassName("deck")[0].style.backgroundSize = "100% 100%";
     remainingDeck = deck.slice();
+
+    // pull out a new card from the deck
+    document.querySelector('.deck').addEventListener('click', clickDeck);
 }
 
-// pull out a new card from the deck
-document.querySelector('.deck').addEventListener('click', () => {
+function clickDeck() {
     if (remainingDeck.length === 0) return;
   
     const [suit, rank] = remainingDeck.pop();
@@ -402,12 +486,14 @@ document.querySelector('.deck').addEventListener('click', () => {
   
     const newCard = new Card(rank, suit, fakeColumn);
     newCard.flip();
-});
+}
 
 //shuffle/restart the game
 document.getElementById("shuffle").addEventListener("click", () => {
     const board = document.querySelector(".board");
     board.innerHTML = "";
+
+    document.querySelector(".top").innerHTML = "<div class='deck empty-stack'></div><div id='backup-card' class='ace-pile empty-stack'></div><!-- empty div for positioning --><div></div>";
   
     const backup = document.getElementById("backup-card");
     if (backup) backup.innerHTML = "";
