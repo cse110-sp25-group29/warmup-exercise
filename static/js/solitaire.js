@@ -464,6 +464,7 @@ function setupBoard() {
     document.getElementsByClassName("deck")[0].style.backgroundImage = "url('static/cards/PNG-cards-1.3/muzicardia\ back.png')"
     document.getElementsByClassName("deck")[0].style.backgroundSize = "100% 100%";
     remainingDeck = deck.slice();
+    console.log(remainingDeck)
 
     ace_pile.col = document.getElementById("backup-card");
 
@@ -477,8 +478,6 @@ function clickDeck() {
     if (cooldown)
         return
 
-    cooldown = true
-
     if (remainingDeck.length === 0) {
         for (var i = ace_pile.order.length-1; i >= 0; i--) {
             var card = ace_pile.order.pop()
@@ -490,6 +489,7 @@ function clickDeck() {
         return
     }
   
+    cooldown = true
     triggerDeck(0)
 }
 
