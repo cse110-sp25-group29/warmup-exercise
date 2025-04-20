@@ -51,14 +51,14 @@ warmup-exercise/
 | - README.md (has the tutorials)
     | - title.html # title page
     | - game.html # easy (step1) page
-    | - drag_card.html # Solitaire (step1+2+3) page
+    | - solitaire.html # Solitaire (step1+2+3) page
     | - static/
         | - css/
             | - style.css # easy's css
-            | - drag_card.css # Solitaire's css
+            | - solitaire.css # Solitaire's css
         | - js/
             | - game.js # easy's js
-            | - drag_card.js # Solitaire's js
+            | - solitaire.js # Solitaire's js
         | - logo/
             | - bg.png # group logo
         | - cards/
