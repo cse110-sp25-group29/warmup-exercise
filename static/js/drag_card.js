@@ -78,12 +78,19 @@ class Column {
         this.col.appendChild(card.container)
     }
 
+    clear() {
+        this.col.innerHTML = ""
+    }
+
     getCenter() {
         return this.col.getBoundingClientRect().x + this.col.getBoundingClientRect().width / 2
     }
 
     // card should be a part of this column
     getStack(card) {
+        if (this.id == 100)
+            return [card]
+
         var seenCard = false
         var ret = []
 
@@ -100,6 +107,11 @@ class Column {
     toggleTopCard(value) {
         if (this.order.length == 0)
             return
+
+        if (this.id == 100) {
+            this.order[this.order.length-1].makeDraggable()
+            return
+        }
 
         var lastCard = this.order[this.order.length-1]
         if (lastCard.flipped)
@@ -453,39 +465,37 @@ function setupBoard() {
     document.getElementsByClassName("deck")[0].style.backgroundSize = "100% 100%";
     remainingDeck = deck.slice();
 
+    ace_pile.col = document.getElementById("backup-card");
+
     // pull out a new card from the deck
     document.querySelector('.deck').addEventListener('click', clickDeck);
 }
 
+const ace_pile = new Column(100)
 function clickDeck() {
-    if (remainingDeck.length === 0) return;
-  
-    const [suit, rank] = remainingDeck.pop();
-    const backupContainer = document.getElementById("backup-card");
-  
+    if (remainingDeck.length === 0) {
+        for (var i = ace_pile.order.length-1; i >= 0; i--) {
+            var card = ace_pile.order.pop()
+            remainingDeck.push([card.suit, card.rank])
+        }
 
-    while (backupContainer.firstChild) {
-      backupContainer.removeChild(backupContainer.firstChild);
+        ace_pile.clear()
+        document.getElementsByClassName("deck")[0].style.backgroundSize = "100% 100%";
+        return
     }
   
+    if (ace_pile.order.length > 0) {
+        ace_pile.order[ace_pile.order.length-1].makeUndraggable()
+    }
 
-    const fakeColumn = {
-      order: [],
-      appendChild: function(card) {
-        this.order.push(card);
-        backupContainer.appendChild(card.container);
-      },
-      getStack: function(card) {
-        return [card];
-      },
-      toggleTopCard: function(_) {},
-      canAccept: function(_) {
-        return false;
-      }
-    };
-  
-    const newCard = new Card(rank, suit, fakeColumn);
-    newCard.flip();
+    const [suit, rank] = remainingDeck.pop();
+    var card = new Card(rank, suit, ace_pile)
+    card.flip()
+    // card.container.style.zIndex = ace_pile.order.length
+
+    if (remainingDeck.length === 0) {
+        document.getElementsByClassName("deck")[0].style.backgroundSize = "0% 0%";
+    }
 }
 
 //shuffle/restart the game
@@ -494,7 +504,8 @@ document.getElementById("shuffle").addEventListener("click", () => {
     board.innerHTML = "";
 
     document.querySelector(".top").innerHTML = "<div class='deck empty-stack'></div><div id='backup-card' class='ace-pile empty-stack'></div><!-- empty div for positioning --><div></div>";
-  
+    document.querySelector('.deck').removeEventListener('click', clickDeck);
+
     const backup = document.getElementById("backup-card");
     if (backup) backup.innerHTML = "";
   
