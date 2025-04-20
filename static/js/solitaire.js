@@ -472,7 +472,13 @@ function setupBoard() {
 }
 
 const ace_pile = new Column(100)
+let cooldown = false
 function clickDeck() {
+    if (cooldown)
+        return
+
+    cooldown = true
+
     if (remainingDeck.length === 0) {
         for (var i = ace_pile.order.length-1; i >= 0; i--) {
             var card = ace_pile.order.pop()
@@ -484,6 +490,15 @@ function clickDeck() {
         return
     }
   
+    triggerDeck(0)
+}
+
+function triggerDeck(i) {
+    if (i == 3 || remainingDeck.length == 0) {
+        cooldown = false
+        return
+    }
+
     if (ace_pile.order.length > 0) {
         ace_pile.order[ace_pile.order.length-1].makeUndraggable()
     }
@@ -491,11 +506,12 @@ function clickDeck() {
     const [suit, rank] = remainingDeck.pop();
     var card = new Card(rank, suit, ace_pile)
     card.flip()
-    // card.container.style.zIndex = ace_pile.order.length
 
     if (remainingDeck.length === 0) {
         document.getElementsByClassName("deck")[0].style.backgroundSize = "0% 0%";
     }
+
+    setTimeout(triggerDeck, 1000, i+1);
 }
 
 //shuffle/restart the game
