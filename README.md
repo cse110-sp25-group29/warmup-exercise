@@ -11,7 +11,8 @@ See the last [meeting minutes](https://cse11029boompow.slack.com/docs/T08MKM8RC4
 ### Rough Timeline
 - 4/15 Tuesday: Teams have made their branches and started working either on `title.html` for tutorial teams or `game.html` for intermediate teams.
 - 4/16 Wednesday: Teams have finished their 1st task and should be in their 2nd.
-- 4/17 Thursday: Teams should have some functionality. We will be checking in on everyone's progress and assess if we will proceed with the other objectives in the assignment.
+- 4/17 Thursday: Teams should have some functionality. We will be checking in on everyone's progress and assess if we will proceed with the other objectives in the assignment.(Step 1 finished)
+- 4/19 Saturday: Finished Solitaire!
 - 4/20 Sunday: Branches are merged, deliverables are finished and submitted.
 
 
