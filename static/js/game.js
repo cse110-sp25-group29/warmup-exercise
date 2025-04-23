@@ -64,7 +64,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".card .front");
 
     cards.forEach((front, index) => {
-        front.style.backgroundImage = `url('/static/cards/PNG-cards-1.3/${frontImages[index]}')`;
+        front.style.backgroundImage = `url('static/cards/PNG-cards-1.3/${frontImages[index]}')`;
         front.style.backgroundSize = "100% 100%";
         front.style.backgroundPosition = "center";
     });
