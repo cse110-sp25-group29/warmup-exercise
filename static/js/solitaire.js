@@ -160,9 +160,9 @@ class Card {
         this.front = document.createElement("div")
         this.front.classList.add("card-front")
         if (rank == 'jack' || rank == 'queen' || rank == 'king')
-            this.front.style.backgroundImage = "url(/static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + "2.png)"
+            this.front.style.backgroundImage = "url(static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + "2.png)"
         else    
-            this.front.style.backgroundImage = "url(/static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + ".png)"
+            this.front.style.backgroundImage = "url(static/cards/PNG-cards-1.3/" + rank + "_of_" + suit + ".png)"
 
         this.back = document.createElement("div")
         this.back.classList.add("card-back")
